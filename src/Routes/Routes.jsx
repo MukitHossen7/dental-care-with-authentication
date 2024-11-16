@@ -5,6 +5,8 @@ import AllTreatments from "../Pages/Treatments/AllTreatments";
 import MyAppointment from "../Pages/Appointment/MyAppointment";
 import Profile from "../Pages/Profile/Profile";
 import DetailsPage from "../Pages/DetailsPage/DetailsPage";
+import LoginPages from "../Pages/Authpages/LoginPages";
+import RegisterPage from "../Pages/Authpages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "/details/:detailsId",
         element: <DetailsPage></DetailsPage>,
+      },
+      {
+        path: "/login",
+        element: <LoginPages></LoginPages>,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage></RegisterPage>,
       },
     ],
   },
