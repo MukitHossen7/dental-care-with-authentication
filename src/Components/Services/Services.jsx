@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { ApiContext } from "../../Providers/ApiProvider";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const { servicesData } = useContext(ApiContext);
-  console.log(servicesData);
 
   return (
     <div className="py-10 ">
@@ -21,7 +21,9 @@ const Services = () => {
               </h2>
               <p>{service.description.slice(0, 80)}...</p>
               <div className="card-actions justify-start">
-                <button className="btn btn-accent">Checkout More</button>
+                <Link to={`/details/${service.id}`} className="btn btn-accent">
+                  Checkout More
+                </Link>
               </div>
             </div>
           </div>
