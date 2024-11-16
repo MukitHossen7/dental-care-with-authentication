@@ -1,12 +1,18 @@
 import { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const RegisterPage = () => {
-  const { createUserAccount, signInGoogle } = useContext(AuthContext);
+  const { createUserAccount, signInGoogle, updateUserProfile, user } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (user) {
+    return <Navigate to={location.state || "/"} />;
+  }
   const handleRegisterFrom = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -20,6 +26,9 @@ const RegisterPage = () => {
         toast.success("Registration successful");
         e.target.reset();
         navigate("/");
+        updateUserProfile({ displayName: name, photoURL: photo }).then(
+          () => {}
+        );
         console.log("User created successfully: ", result);
       })
       .catch((error) => {

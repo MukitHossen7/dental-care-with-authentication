@@ -6,10 +6,10 @@ const ApiProvider = ({ children }) => {
   const [servicesData, setServicesData] = useState([]);
   const [clientsData, setClientsData] = useState([]);
   useEffect(() => {
-    fetch("service.json")
+    fetch("./service.json")
       .then((response) => response.json())
       .then((data) => setServicesData(data));
-    fetch("happyclients.json")
+    fetch("./happyclients.json")
       .then((response) => response.json())
       .then((data) => setClientsData(data));
   }, []);

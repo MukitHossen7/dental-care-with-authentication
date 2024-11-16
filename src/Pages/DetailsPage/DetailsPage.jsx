@@ -1,24 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { ApiContext } from "../../Providers/ApiProvider";
+import { useLoaderData } from "react-router-dom";
 
 const DetailsPage = () => {
-  const { detailsId } = useParams();
-  const { servicesData } = useContext(ApiContext);
-  const [serviceDetails, setServicesDetails] = useState({});
-  useEffect(() => {
-    const services = servicesData.find(
-      (service) => service.id === parseInt(detailsId)
-    );
-    setServicesDetails(services);
-  }, [servicesData, detailsId]);
-  console.log(serviceDetails);
+  const { singleData } = useLoaderData();
+
+  const { image, treatment, description } = singleData;
   return (
     <div className="py-10">
       <div
         className="hero py-32 rounded-lg"
         style={{
-          backgroundImage: `url(${serviceDetails.image})`,
+          backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -27,10 +18,8 @@ const DetailsPage = () => {
         <div className="hero-overlay bg-opacity-30"></div>
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">
-              {serviceDetails.treatment}
-            </h1>
-            <p className="mb-5">{serviceDetails.description}</p>
+            <h1 className="mb-5 text-5xl font-bold">{treatment}</h1>
+            <p className="mb-5">{description}</p>
             <button className="btn btn-primary">Book Appointment</button>
           </div>
         </div>

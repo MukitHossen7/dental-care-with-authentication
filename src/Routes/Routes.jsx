@@ -7,6 +7,7 @@ import Profile from "../Pages/Profile/Profile";
 import DetailsPage from "../Pages/DetailsPage/DetailsPage";
 import LoginPages from "../Pages/Authpages/LoginPages";
 import RegisterPage from "../Pages/Authpages/RegisterPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +29,25 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/details/:detailsId",
-        element: <DetailsPage></DetailsPage>,
+        element: (
+          <PrivateRoutes>
+            <DetailsPage></DetailsPage>
+          </PrivateRoutes>
+        ),
+        loader: async ({ params }) => {
+          const response = await fetch("./service.json");
+          const data = await response.json();
+          const singleData = data.find((item) => item.id == params.detailsId);
+          return { singleData };
+        },
       },
       {
         path: "/login",
