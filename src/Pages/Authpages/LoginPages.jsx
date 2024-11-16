@@ -2,17 +2,24 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 const LoginPages = () => {
+  const handleLoginForm = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+  };
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-lg">
         <h2 className="font-medium text-3xl text-center pt-5">Login Now</h2>
-        <form className="card-body">
+        <form className="card-body" onSubmit={handleLoginForm}>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
               type="email"
+              name="email"
               placeholder="email"
               className="input input-bordered"
               required
@@ -24,6 +31,7 @@ const LoginPages = () => {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="password"
               className="input input-bordered"
               required

@@ -1,7 +1,43 @@
+import { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const RegisterPage = () => {
+  const { createUserAccount, signInGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleRegisterFrom = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(name, photo, email, password);
+
+    createUserAccount(email, password)
+      .then((result) => {
+        toast.success("Registration successful");
+        e.target.reset();
+        navigate("/");
+        console.log("User created successfully: ", result);
+      })
+      .catch((error) => {
+        console.error("Error creating user: ", error);
+        toast.error("This email-already-in-use");
+      });
+  };
+  const handleGoogleSignIn = () => {
+    signInGoogle()
+      .then((result) => {
+        toast.success("Google Sign-In successful");
+        navigate("/");
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error signing in with Google: ", error);
+      });
+  };
   return (
     <div>
       <div className="flex justify-center items-center h-screen">
@@ -9,13 +45,14 @@ const RegisterPage = () => {
           <h2 className="font-medium text-3xl text-center pt-5">
             Register Now
           </h2>
-          <form className="card-body">
+          <form className="card-body" onSubmit={handleRegisterFrom}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="Name"
                 className="input input-bordered"
                 required
@@ -27,6 +64,7 @@ const RegisterPage = () => {
               </label>
               <input
                 type="text"
+                name="photo"
                 placeholder="Photo URL"
                 className="input input-bordered"
                 required
@@ -38,6 +76,7 @@ const RegisterPage = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
                 required
@@ -49,6 +88,7 @@ const RegisterPage = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
                 required
@@ -58,7 +98,10 @@ const RegisterPage = () => {
               <button className="btn btn-primary">Register</button>
             </div>
           </form>
-          <button className="flex gap-3 items-center justify-center py-2 px-5 border border-sky-500 mx-8 rounded-full mb-5 font-semibold text-sky-700">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex gap-3 items-center justify-center py-2 px-5 border border-sky-500 mx-8 rounded-full mb-5 font-semibold text-sky-700"
+          >
             <FcGoogle className="text-2xl" />
             Sign up Google
           </button>
