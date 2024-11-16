@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Banner from "../../Components/Banner/Banner";
 import Services from "../../Components/Services/Services";
+import Feedback from "../../Components/Feedback/Feedback";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <Link to="/treatments" className="btn btn-accent">
         View All Treatments
       </Link>
+      <Feedback></Feedback>
     </div>
   );
 };
