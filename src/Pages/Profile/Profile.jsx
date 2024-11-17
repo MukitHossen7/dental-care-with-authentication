@@ -6,13 +6,13 @@ import toast from "react-hot-toast";
 
 const Profile = () => {
   const { user, updateUser } = useContext(AuthContext);
-  console.log(user);
+
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const photo = e.target.photo.value;
     const email = e.target.email.value;
-    console.log(name, photo, email);
+
     updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
