@@ -5,7 +5,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const RegisterPage = () => {
-  const { createUserAccount, signInGoogle, updateUserProfile, user } =
+  const { createUserAccount, signInGoogle, updateUserProfile, user, setUser } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +19,6 @@ const RegisterPage = () => {
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, photo, email, password);
 
     createUserAccount(email, password)
       .then((result) => {
@@ -29,7 +28,7 @@ const RegisterPage = () => {
         updateUserProfile({ displayName: name, photoURL: photo }).then(
           () => {}
         );
-        console.log("User created successfully: ", result);
+        setUser(result.user);
       })
       .catch((error) => {
         console.error("Error creating user: ", error);

@@ -19,42 +19,38 @@ const router = createBrowserRouter([
         element: <HomePage></HomePage>,
       },
       {
-        path: "/treatments",
+        path: "treatments",
         element: <AllTreatments></AllTreatments>,
       },
 
       {
-        path: "/appointment",
+        path: "appointment",
         element: <MyAppointment></MyAppointment>,
       },
       {
-        path: "/profile",
-        element: (
-          <PrivateRoutes>
-            <Profile></Profile>
-          </PrivateRoutes>
-        ),
+        path: "profile",
+        element: <Profile></Profile>,
       },
       {
-        path: "/details/:detailsId",
+        path: "details/:detailsId",
         element: (
           <PrivateRoutes>
             <DetailsPage></DetailsPage>
           </PrivateRoutes>
         ),
         loader: async ({ params }) => {
-          const response = await fetch("./service.json");
+          const response = await fetch("/service.json");
           const data = await response.json();
           const singleData = data.find((item) => item.id == params.detailsId);
           return { singleData };
         },
       },
       {
-        path: "/login",
+        path: "login",
         element: <LoginPages></LoginPages>,
       },
       {
-        path: "/register",
+        path: "register",
         element: <RegisterPage></RegisterPage>,
       },
     ],
